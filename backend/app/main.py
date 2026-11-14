@@ -1,7 +1,9 @@
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.health import router as health_router
+from app.api.interfaces import router as interfaces_router
 
 
 app = FastAPI(
@@ -14,7 +16,6 @@ app = FastAPI(
 )
 
 
-# Frontend development origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -30,6 +31,11 @@ app.add_middleware(
 # Register API routers
 app.include_router(
     health_router,
+    prefix="/api/v1",
+)
+
+app.include_router(
+    interfaces_router,
     prefix="/api/v1",
 )
 
