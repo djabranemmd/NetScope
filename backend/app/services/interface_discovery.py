@@ -12,7 +12,10 @@ def discover_interfaces():
     # Identify the interface used by the default IPv4 route
     try:
         default_route = conf.route.route("0.0.0.0")
-        default_interface = default_route[1]
+
+        # Scapy returns: (interface, source_ip, gateway)
+        default_interface = default_route[0]
+
     except Exception:
         default_interface = None
 
