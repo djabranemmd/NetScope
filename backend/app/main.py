@@ -6,6 +6,7 @@ from app.api.health import router as health_router
 from app.api.interfaces import router as interfaces_router
 from app.api.capture import router as capture_router
 from app.api.analytics import router as analytics_router
+from app.api.history import router as history_router
 
 
 app = FastAPI(
@@ -14,7 +15,7 @@ app = FastAPI(
         "Intelligent Network Traffic Analysis "
         "and Anomaly Detection Platform."
     ),
-    version="0.3.0",
+    version="0.4.0",
 )
 
 
@@ -50,12 +51,17 @@ app.include_router(
     prefix="/api/v1",
 )
 
+app.include_router(
+    history_router,
+    prefix="/api/v1",
+)
+
 
 @app.get("/")
 async def root():
     return {
         "name": "NetScope",
         "description": "Network Traffic Analysis Platform",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "documentation": "/docs",
     }

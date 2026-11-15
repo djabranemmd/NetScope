@@ -29,9 +29,16 @@ class PacketCaptureEngine:
         self.stats = {
             "total_packets": 0,
             "total_bytes": 0,
+
             "incoming_packets": 0,
+            "incoming_bytes": 0,
+
             "outgoing_packets": 0,
+            "outgoing_bytes": 0,
+
             "unknown_direction_packets": 0,
+            "unknown_direction_bytes": 0,
+
             "protocols": {},
         }
 
@@ -52,23 +59,24 @@ class PacketCaptureEngine:
             with self.lock:
                 self.packets.append(parsed_packet)
 
+                packet_size = parsed_packet["packet_size"]
+
                 self.stats["total_packets"] += 1
-                self.stats["total_bytes"] += (
-                    parsed_packet["packet_size"]
-                )
+                self.stats["total_bytes"] += packet_size
 
                 direction = parsed_packet["direction"]
 
                 if direction == "INCOMING":
                     self.stats["incoming_packets"] += 1
+                    self.stats["incoming_bytes"] += packet_size
 
                 elif direction == "OUTGOING":
                     self.stats["outgoing_packets"] += 1
+                    self.stats["outgoing_bytes"] += packet_size
 
                 else:
-                    self.stats[
-                        "unknown_direction_packets"
-                    ] += 1
+                    self.stats["unknown_direction_packets"] += 1
+                    self.stats["unknown_direction_bytes"] += packet_size
 
                 protocol = parsed_packet["protocol"]
 
@@ -165,12 +173,12 @@ class PacketCaptureEngine:
                 "is_running": self.is_running,
                 "interface": self.interface,
                 "local_ip": self.local_ip,
+
                 "stats": {
                     **self.stats,
-                    "protocols": dict(
-                        self.stats["protocols"]
-                    ),
+                    "protocols": dict(self.stats["protocols"]),
                 },
+
                 "buffered_packets": len(self.packets),
                 "last_error": self.last_error,
             }

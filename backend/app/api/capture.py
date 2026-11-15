@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
 from app.services.packet_capture import capture_engine
+from app.services.traffic_history import traffic_history
 
 
 router = APIRouter(
@@ -21,9 +22,16 @@ class CaptureStartRequest(BaseModel):
 @router.post("/start")
 async def start_capture(request: CaptureStartRequest):
     try:
+        capture_data = capture_engine.start(request.interface)
+
+        history_data = traffic_history.start()
+
         return {
-            "message": "Packet capture started successfully.",
-            "data": capture_engine.start(request.interface),
+            "message": "Packet capture and traffic history started successfully.",
+            "data": {
+                "capture": capture_data,
+                "history": history_data,
+            },
         }
 
     except ValueError as error:
@@ -42,9 +50,16 @@ async def start_capture(request: CaptureStartRequest):
 @router.post("/stop")
 async def stop_capture():
     try:
+        history_data = traffic_history.stop()
+
+        capture_data = capture_engine.stop()
+
         return {
-            "message": "Packet capture stopped.",
-            "data": capture_engine.stop(),
+            "message": "Packet capture and traffic history stopped.",
+            "data": {
+                "capture": capture_data,
+                "history": history_data,
+            },
         }
 
     except RuntimeError as error:
@@ -56,7 +71,10 @@ async def stop_capture():
 
 @router.get("/status")
 async def get_capture_status():
-    return capture_engine.get_status()
+    return {
+        "capture": capture_engine.get_status(),
+        "history": traffic_history.get_status(),
+    }
 
 
 @router.get("/packets")
