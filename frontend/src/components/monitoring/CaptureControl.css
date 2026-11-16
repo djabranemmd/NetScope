@@ -1,0 +1,202 @@
+
+.capture-control {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 11px;
+  padding: 22px;
+}
+
+.capture-control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.capture-control-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.capture-control-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(56, 189, 248, 0.09);
+  color: var(--accent);
+}
+
+.capture-control-title h3 {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.capture-control-title p {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 5px;
+}
+
+.capture-state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 8px 11px;
+  border-radius: 6px;
+}
+
+.capture-active {
+  color: var(--success);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.capture-inactive {
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.capture-control-body {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.interface-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: min(100%, 390px);
+}
+
+.interface-selector label {
+  color: #8995a8;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.interface-selector select {
+  width: 100%;
+  padding: 12px 13px;
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+  background: #0c1421;
+  color: var(--text-primary);
+  font-size: 11px;
+  outline: none;
+}
+
+.interface-selector select:focus {
+  border-color: var(--accent);
+}
+
+.interface-selector select:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.interface-hint {
+  color: #64748b;
+  font-size: 9px;
+}
+
+.capture-actions {
+  display: flex;
+  align-items: center;
+}
+
+.capture-start-button,
+.capture-stop-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 155px;
+  padding: 12px 17px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.capture-start-button {
+  color: #04121d;
+  background: var(--accent);
+}
+
+.capture-start-button:hover {
+  background: #7dd3fc;
+}
+
+.capture-stop-button {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.capture-stop-button:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.capture-start-button:disabled,
+.capture-stop-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.capture-running-info {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 10px;
+}
+
+.capture-running-info strong {
+  color: var(--success);
+}
+
+.capture-error {
+  margin-top: 17px;
+  padding: 12px;
+  border-radius: 7px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .capture-control {
+    padding: 16px;
+  }
+
+  .capture-control-body {
+    align-items: stretch;
+  }
+
+  .interface-selector {
+    width: 100%;
+  }
+
+  .capture-actions,
+  .capture-start-button,
+  .capture-stop-button {
+    width: 100%;
+  }
+}
