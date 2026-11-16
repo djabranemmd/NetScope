@@ -1,5 +1,5 @@
 
-import { Bell, RefreshCw, Search } from "lucide-react";
+import { Bell, RefreshCw } from "lucide-react";
 
 export default function Topbar({
   apiConnected,

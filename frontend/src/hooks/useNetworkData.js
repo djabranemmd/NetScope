@@ -65,9 +65,7 @@ export default function useNetworkData() {
     });
 
     if (failedRequests.length > 0) {
-      setError(
-        `Failed to retrieve: ${failedRequests.join(", ")}`
-      );
+      setError(`Failed to retrieve: ${failedRequests.join(", ")}`);
     } else {
       setError(null);
     }
@@ -77,13 +75,16 @@ export default function useNetworkData() {
   }, []);
 
   useEffect(() => {
-    refreshData();
+    const initialTimeout = setTimeout(() => {
+      refreshData();
+    }, 0);
 
     const intervalId = setInterval(() => {
       refreshData();
     }, POLLING_INTERVAL);
 
     return () => {
+      clearTimeout(initialTimeout);
       clearInterval(intervalId);
     };
   }, [refreshData]);

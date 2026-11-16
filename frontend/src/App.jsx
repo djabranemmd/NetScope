@@ -2,11 +2,11 @@
 import Sidebar from "./components/layout/Sidebar";
 import Topbar from "./components/layout/Topbar";
 import CaptureControl from "./components/monitoring/CaptureControl";
+import TrafficChart from "./components/dashboard/TrafficChart";
 
 import useNetworkData from "./hooks/useNetworkData";
 
 import {
-  Activity,
   Radio,
   ShieldCheck,
   Database,
@@ -40,6 +40,8 @@ function DashboardContent({
   interfaces,
   captureStatus,
   anomalyStatus,
+  history,
+  analytics,
   loading,
   error,
   onRefresh,
@@ -157,26 +159,12 @@ function DashboardContent({
         </div>
       </section>
 
+      <TrafficChart
+        history={history}
+        analytics={analytics}
+      />
+
       <section className="workspace-grid">
-        <div className="workspace-card">
-          <div className="workspace-card-header">
-            <div className="workspace-title">
-              <Activity size={19} />
-              <h3>Traffic Analytics</h3>
-            </div>
-            <span className="coming-label">NEXT COMPONENT</span>
-          </div>
-
-          <div className="empty-state">
-            <Activity size={32} />
-            <h4>Traffic visualization</h4>
-            <p>
-              Traffic charts and bandwidth statistics will
-              appear here using live backend data.
-            </p>
-          </div>
-        </div>
-
         <div className="workspace-card">
           <div className="workspace-card-header">
             <div className="workspace-title">
@@ -218,6 +206,8 @@ export default function App() {
     interfaces,
     captureStatus,
     anomalyStatus,
+    history,
+    analytics,
     loading,
     error,
     lastUpdated,
@@ -242,6 +232,8 @@ export default function App() {
           interfaces={interfaces}
           captureStatus={captureStatus}
           anomalyStatus={anomalyStatus}
+          history={history}
+          analytics={analytics}
           loading={loading}
           error={error}
           onRefresh={refreshData}

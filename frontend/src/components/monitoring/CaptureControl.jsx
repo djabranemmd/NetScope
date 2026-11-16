@@ -1,11 +1,13 @@
-import "./CaptureControl.css";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import { Play, Square, Radio, LoaderCircle } from "lucide-react";
 
 import {
   startCapture,
   stopCapture,
 } from "../../services/api";
+
+import "./CaptureControl.css";
 
 export default function CaptureControl({
   interfaces,
@@ -18,18 +20,14 @@ export default function CaptureControl({
 
   const defaultInterface = interfaces?.default_interface || "";
 
-  const [selectedInterface, setSelectedInterface] = useState("");
+  const [selectedInterface, setSelectedInterface] = useState(
+    defaultInterface
+  );
   const [isBusy, setIsBusy] = useState(false);
   const [operationError, setOperationError] = useState(null);
 
   const isRunning = captureStatus?.capture?.is_running === true;
   const activeInterface = captureStatus?.capture?.interface;
-
-  useEffect(() => {
-    if (!selectedInterface && defaultInterface) {
-      setSelectedInterface(defaultInterface);
-    }
-  }, [defaultInterface, selectedInterface]);
 
   const handleStart = async () => {
     if (!selectedInterface) {
@@ -98,16 +96,12 @@ export default function CaptureControl({
 
       <div className="capture-control-body">
         <div className="interface-selector">
-          <label htmlFor="network-interface">
-            NETWORK INTERFACE
-          </label>
+          <label htmlFor="network-interface">NETWORK INTERFACE</label>
 
           <select
             id="network-interface"
             value={selectedInterface}
-            onChange={(event) =>
-              setSelectedInterface(event.target.value)
-            }
+            onChange={(event) => setSelectedInterface(event.target.value)}
             disabled={isRunning || isBusy}
           >
             <option value="">Select an interface</option>
@@ -168,9 +162,7 @@ export default function CaptureControl({
       )}
 
       {operationError && (
-        <div className="capture-error">
-          {operationError}
-        </div>
+        <div className="capture-error">{operationError}</div>
       )}
     </section>
   );
